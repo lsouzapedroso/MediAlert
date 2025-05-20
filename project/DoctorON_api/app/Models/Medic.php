@@ -45,4 +45,9 @@ class Medic extends Model
             'patient_id'
         );
     }
+
+    public function clinics()
+    {
+        return $this->belongsToMany(Clinic::class, 'medics_clinics')->withTimestamps()->withTrashed();
+    }
 }
