@@ -56,4 +56,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * The clinics that belong to the user.
+     */
+    public function clinics()
+    {
+        return $this->belongsToMany(Clinic::class, 'users_clinics')->withTimestamps()->withTrashed();
+    }
 }
