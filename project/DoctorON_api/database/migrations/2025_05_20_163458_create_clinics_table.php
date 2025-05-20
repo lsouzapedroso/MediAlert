@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->foreignId('city_id');
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreignId('city_id')->constrained('cities');
             $table->softDeletes();
             $table->timestamps();
         });
