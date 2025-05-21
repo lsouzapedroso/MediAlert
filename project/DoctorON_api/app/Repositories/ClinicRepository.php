@@ -24,4 +24,15 @@ class ClinicRepository
     {
         return $this->clinicModel->create($clinicData);
     }
+
+    public function updateClinic(array $clinicData, $id)
+    {
+        return $this->clinicModel->where('id', $id)->update($clinicData);
+    }
+
+    public function deleteClinic($id)
+    {
+        return $this->clinicModel->where('id', $id)->delete();
+    }
+
 }

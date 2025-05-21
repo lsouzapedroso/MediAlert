@@ -29,11 +29,11 @@ class ClinicController extends Controller
      *         required=true,
      *
      *         @OA\JsonContent(
-     *             required={"nome", "enderço", "cidade_id"},
+     *             required={"nome", "address", "city_id"},
      *
-     *             @OA\Property(property="nome", type="string", example="Clinica Souza"),
-     *             @OA\Property(property="endereço", type="string", example="Avenida São Paulo"),
-     *             @OA\Property(property="cidade_id", type="integer", example=1)
+     *             @OA\Property(property="name", type="string", example="Clinica Souza"),
+     *             @OA\Property(property="address", type="string", example="Avenida São Paulo"),
+     *             @OA\Property(property="city_id", type="integer", example=1)
      *         )
      *     ),
      *
@@ -44,9 +44,9 @@ class ClinicController extends Controller
      *         @OA\JsonContent(
      *
      *             @OA\Property(property="id", type="integer", example=1),
-     *             @OA\Property(property="nome", type="string", example="Dr. João Silva"),
-     *             @OA\Property(property="endereço", type="string", example="Avenida São Paulo"),
-     *             @OA\Property(property="cidade_id", type="integer", example=1),
+     *             @OA\Property(property="name", type="string", example="Dr. João Silva"),
+     *             @OA\Property(property="addres", type="string", example="Avenida São Paulo"),
+     *             @OA\Property(property="city_id", type="integer", example=1),
      *             @OA\Property(property="created_at", type="string", format="date-time", example="2024-02-01T12:00:00Z"),
      *             @OA\Property(property="updated_at", type="string", format="date-time", example="2024-02-01T12:00:00Z"),
      *             @OA\Property(property="deleted_at", type="string", format="date-time", nullable=true, example=null)
