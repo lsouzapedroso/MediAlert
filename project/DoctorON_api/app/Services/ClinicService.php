@@ -22,4 +22,27 @@ class ClinicService
 
         return $this->clinicRepository->createClinic($clinicData);
     }
+
+    public function findById(int $clinicId)
+    {
+        $existingClinic = $this->clinicRepository->findById($clinicId);
+        if ($existingClinic) {
+            throw new \Exception('This clinic does not exist.');
+        }
+
+        return $existingClinic;
+    }
+
+    public function updateClinic(array $clinicData)
+    {
+        $clinicId = $clinicData['id'] ;
+
+        $existingClinic = $this->clinicRepository->findById($clinicId);
+        if (!$existingClinic) {
+            throw new \Exception('This clinic does not exist.');
+        }
+
+        return $this->clinicRepository->updateClinic($clinicData, $clinicId );
+    }
+
 }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterClinicRequest;
+use app\Http\Requests\Clinic\FyndByIdClinicRequest;
+use app\Http\Requests\Clinic\RegisterClinicRequest;
 use App\Services\ClinicService;
 
 class ClinicController extends Controller
@@ -82,4 +83,25 @@ class ClinicController extends Controller
             ], 422);
         }
     }
+
+    public function findByid(FyndByIdClinicRequest $request)
+    {
+
+        $validatedData = $request->validated();
+
+        try{
+            $clinic = $this->clinicService->findById($validatedData);
+
+            return response()->json([
+                'message' => 'Clinic found successfully',
+                'clinc' => $clinic
+            ]);
+        }catch (\Exception $e){
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 422);
+        }
+    }
+
+
 }

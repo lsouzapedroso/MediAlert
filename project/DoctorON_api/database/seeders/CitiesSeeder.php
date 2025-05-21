@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\City;
+use app\Http\Requests\Appointment\Models\City;
 use Illuminate\Database\Seeder;
 
 class CitiesSeeder extends Seeder

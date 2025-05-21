@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace app\Http\Requests\Clinic;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Route;
 
 class RegisterClinicRequest extends FormRequest
 {

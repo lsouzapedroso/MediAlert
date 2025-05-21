@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePatientRequest;
-use App\Http\Requests\UpdatePatientRequest;
-use App\Models\Patient;
+use app\Http\Requests\Appointment\Models\Patient;
+use app\Http\Requests\Patient\StorePatientRequest;
+use app\Http\Requests\Patient\UpdatePatientRequest;
 use Illuminate\Http\JsonResponse;
 
 class PatientController extends Controller

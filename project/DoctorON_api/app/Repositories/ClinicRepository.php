@@ -4,7 +4,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Clinic;
+use app\Http\Requests\Appointment\Models\Clinic;
 
 class ClinicRepository
 {
@@ -33,6 +33,11 @@ class ClinicRepository
     public function deleteClinic($id)
     {
         return $this->clinicModel->where('id', $id)->delete();
+    }
+
+    public function findById($clinicId)
+    {
+        return $this->clinicModel->where('id', $clinicId)->first();
     }
 
 }
