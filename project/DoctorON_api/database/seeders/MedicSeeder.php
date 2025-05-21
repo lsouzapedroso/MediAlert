@@ -16,10 +16,19 @@ class MedicSeeder extends Seeder
             DB::table('medics')->insert([
                 'name' => "Medic $i",
                 'specialization' => "Specialization $i",
-                'city_id' => rand(1, 26),
+                'crm' => $this->generateRandomCRM(),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
         }
     }
+
+    private function generateRandomCRM(): string
+    {
+        $number = sprintf('%07d', rand(1, 9999999));
+        $letters = chr(rand(65, 90)) . chr(rand(65, 90));
+
+        return "{$number}-{$letters}";
+    }
+
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('specialization');
-            $table->foreignId('city_id')->constrained()->onDelete('cascade');
+            $table->string('crm', 10)->unique();
             $table->timestamps();
             $table->softDeletes();
         });
