@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
-use App\Models\Medic;
+use app\Models\City;
+use app\Models\Medic;
 use Illuminate\Http\Request;
 
 class CityController extends Controller

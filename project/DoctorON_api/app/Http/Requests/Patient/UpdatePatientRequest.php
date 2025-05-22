@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace app\Http\Requests\Patient;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 
-class StorePatientRequest extends FormRequest
+class UpdatePatientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,6 +13,13 @@ class StorePatientRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'id_paciente' => Route::current()->parameter('id_paciente'),
+        ]);
     }
 
     /**
@@ -22,25 +30,24 @@ class StorePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|string|max:255',
-            'cpf' => 'required|cpf|unique:patients,cpf',
-            'celular' => 'required|phone:BR',
+            'id_paciente' => 'required|integer|exists:patients,id',
+            'nome' => 'sometimes|string|max:255',
+            'cpf' => 'prohibited',
+            'celular' => 'sometimes|phone:BR',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'O campo nome é obrigatório.',
+            'id_paciente.required' => 'O ID do paciente é obrigatório.',
+            'id_paciente.integer' => 'O ID do paciente deve ser um número.',
+            'id_paciente.exists' => 'O paciente informado não existe.',
             'name.string' => 'O campo nome deve ser um texto.',
             'name.max' => 'O campo nome deve ter no máximo 255 caracteres.',
-            'cpf.required' => 'O campo CPF é obrigatório.',
-            'cpf.string' => 'O campo CPF deve ser um texto.',
-            'cpf.cpf' => 'O campo CPF deve ser um CPF válido.',
-            'cpf.unique' => 'O CPF informado já está cadastrado.',
-            'celular.required' => 'O campo celular é obrigatório.',
             'celular.regex' => 'O celular deve estar no formato (XX) 9XXXX-XXXX ou (XX)9XXXXXXXX.',
             'celular.phone' => 'O número de celular não é válido.',
+            'cpf.prohibited' => 'O CPF não pode ser alterado.',
         ];
     }
 }

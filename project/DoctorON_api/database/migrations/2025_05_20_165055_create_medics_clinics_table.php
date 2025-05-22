@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('medic_id')->constrained()->onDelete('cascade');
             $table->foreignId('clinic_id')->constrained()->onDelete('cascade');
+            $table->foreignId('city_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
