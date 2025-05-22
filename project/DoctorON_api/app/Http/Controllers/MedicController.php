@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use app\Http\Requests\Medic\StoreMedicRequest;
 use App\Http\Requests\ShowMedicPatientRequest;
-use App\Http\Requests\StoreMedicRequest;
-use App\Models\Medic;
-use App\Models\Patient;
+use app\Models\Medic;
+use app\Models\Patient;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

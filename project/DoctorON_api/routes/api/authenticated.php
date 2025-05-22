@@ -4,6 +4,7 @@ use App\Http\Controllers\AppointmentsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MedicController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ClinicController;
 use App\Http\Middleware\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,8 @@ Route::middleware([Middleware::class])->group(function () {
     Route::get('/pacientes', [PatientController::class, 'store']);
     Route::post('/pacientes', [PatientController::class, 'store']);
     Route::put('/pacientes/{id_paciente}', [PatientController::class, 'update']);
+
+    Route::post('/clinicas', [ClinicController::class, 'register']);
+    Route::put('/clinic/{clinic_id}', [ClinicController::class, 'updateClinic']);
 
 });

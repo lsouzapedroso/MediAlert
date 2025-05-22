@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
             CitiesSeeder::class,
             MedicSeeder::class,
             PatientSeeder::class,
+            ClinicSeeder::class,
+            MedicsClinicsSeeder::class,
+            UsersClinicsSeeder::class,
         ]);
     }
 }
