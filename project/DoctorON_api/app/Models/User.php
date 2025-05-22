@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Requests\Appointment\Models;
+namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

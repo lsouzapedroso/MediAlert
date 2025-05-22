@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use app\Http\Requests\Appointment\Models\Appointment;
+use app\Http\Requests\Appointment\Appointment;
 use App\Http\Requests\StoreAppointmentRequest;
 use Illuminate\Http\JsonResponse;
 

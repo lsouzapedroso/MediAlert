@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use app\Http\Requests\Appointment\Models\Patient;
+use app\Models\Patient;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 

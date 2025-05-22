@@ -4,7 +4,7 @@
 
 namespace App\Repositories;
 
-use app\Http\Requests\Appointment\Models\Clinic;
+use app\Models\Clinic;
 
 class ClinicRepository
 {

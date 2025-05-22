@@ -34,4 +34,6 @@ Route::middleware([Middleware::class])->group(function () {
     Route::put('/pacientes/{id_paciente}', [PatientController::class, 'update']);
 
     Route::post('/clinicas', [ClinicController::class, 'register']);
+    Route::put('/clinic/{clinic_id}', [ClinicController::class, 'updateClinic']);
+
 });

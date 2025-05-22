@@ -1,20 +1,22 @@
 <?php
 
-namespace app\Http\Requests\Appointment\Models;
+namespace app\Models;
 
+use app\Http\Requests\Appointment\Appointment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class City extends Model
+class Patient extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'cities';
+    protected $table = 'patients';
 
     protected $fillable = [
         'name',
-        'state',
+        'cpf',
+        'phone',
     ];
 
     protected $hidden = [
@@ -23,8 +25,11 @@ class City extends Model
         'deleted_at',
     ];
 
-    public function medics()
+    /**
+     * Relationship: A patient has many appointments.
+     */
+    public function appointments()
     {
-        return $this->hasMany(Medic::class, 'city_id');
+        return $this->hasMany(Appointment::class, 'patient_id');
     }
 }
