@@ -4,21 +4,16 @@
 
 namespace App\Repositories;
 
-use app\Models\Clinic;
+use App\Exceptions\ClinicNameNotUniqueException;
+use App\Models\Clinic;
+use app\Models\User;
 
 class ClinicRepository
 {
-    protected $clinicModel;
-
-    public function __construct(Clinic $clinicModel)
-    {
-        $this->clinicModel = $clinicModel;
-    }
-
-    public function findByName($name)
-    {
-        return $this->clinicModel->where('name', $name)->first();
-    }
+    public function __construct(
+        private Clinic $clinicModel,
+        private User $userModel
+    ) {}
 
     public function createClinic(array $clinicData)
     {
@@ -38,6 +33,23 @@ class ClinicRepository
     public function findById($clinicId)
     {
         return $this->clinicModel->where('id', $clinicId)->first();
+    }
+
+
+
+
+    public function associateUser(array $clinicData, int $userId)
+    {
+
+        if ($this->clinicRepository->findByCnpj($$clinicData['cnpj'])) {
+            throw new ClinicNameNotUniqueException;
+        }
+
+
+    }
+
+    public function findByCnpj(array $clinicData){
+
     }
 
 }

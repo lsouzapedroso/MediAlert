@@ -13,14 +13,22 @@ class ClinicService
         $this->clinicRepository = $clinicRepository;
     }
 
-    public function registerClinic(array $clinicData)
+    public function registerClinic(array $clinicData, int $userId)
     {
-        $existingClinic = $this->clinicRepository->findByName($clinicData['name']);
-        if ($existingClinic) {
-            throw new \Exception('A clinic with this name already exists.');
+
+        DB::beginTransaction();
+
+        try{
+
+            $clinic = $this->clinicRepository->createClinic($clinicData);
+
+            $this->clinicRepository->associateUser($clinic, $userId);
+            return $clinic;
+        }catch (\Exception $e){
+           DB::rollBack();
+           throw $e;
         }
 
-        return $this->clinicRepository->createClinic($clinicData);
     }
 
     public function findById(int $clinicId)
@@ -46,3 +54,4 @@ class ClinicService
     }
 
 }
+

@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CitiesSeeder::class,
-            MedicSeeder::class,
-            PatientSeeder::class,
-            ClinicSeeder::class,
-            MedicsClinicsSeeder::class,
-            UsersClinicsSeeder::class,
+//            MedicSeeder::class,
+//            PatientSeeder::class,
+//            ClinicSeeder::class,
+//            MedicsClinicsSeeder::class,
+//            UsersClinicsSeeder::class,
         ]);
     }
 }

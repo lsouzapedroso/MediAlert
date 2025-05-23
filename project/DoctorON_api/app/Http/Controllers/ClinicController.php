@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use app\Http\Requests\Clinic\FyndByIdClinicRequest;
-use app\Http\Requests\Clinic\RegisterClinicRequest;
+use App\Http\Requests\Clinic\FyndByIdClinicRequest;
+use App\Http\Requests\Clinic\RegisterClinicRequest;
 use App\Services\ClinicService;
 
 class ClinicController extends Controller
@@ -69,9 +69,13 @@ class ClinicController extends Controller
     public function register(RegisterClinicRequest $request)
     {
         $validatedData = $request->validated();
+        $userId = auth()->id();
 
         try {
-            $clinic = $this->clinicService->registerClinic($validatedData);
+            $clinic = $this->clinicService->registerClinic(
+                $validatedData,
+                $userId
+            );
 
             return response()->json([
                 'message' => 'Clinic registered successfully',
