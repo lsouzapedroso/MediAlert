@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use app\Http\Requests\Appointment\Appointment;
 use App\Http\Requests\StoreAppointmentRequest;
+use app\Models\Appointment;
 use Illuminate\Http\JsonResponse;
 
 class AppointmentsController extends Controller

@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
+            $table->String('cnpj')->unique();
+            $table->string('email')->unique();
+            $table->string('phone');
             $table->foreignId('city_id')->constrained('cities');
             $table->softDeletes();
             $table->timestamps();

@@ -63,6 +63,9 @@ class User extends Authenticatable implements JWTSubject
      */
     public function clinics()
     {
-        return $this->belongsToMany(Clinic::class, 'users_clinics')->withTimestamps()->withTrashed();
+        return $this->belongsToMany(Clinic::class, 'users_clinics')
+            ->withPivot(['role', 'created_by'])
+            ->withTimestamps()
+            ->withTrashed();
     }
 }

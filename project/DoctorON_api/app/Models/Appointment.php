@@ -1,9 +1,7 @@
 <?php
 
-namespace app\Http\Requests\Appointment;
+namespace app\Models;
 
-use app\Models\Medic;
-use app\Models\Patient;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

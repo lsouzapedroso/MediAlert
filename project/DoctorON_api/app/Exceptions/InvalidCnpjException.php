@@ -4,11 +4,11 @@ namespace App\Exceptions;
 
 use Exception;
 
-class ClinicNameNotUniqueException extends Exception
+class InvalidCnpjException extends Exception
 {
     protected $code = 422;
 
-    public function __construct(string $message = 'A clinic with this name already exists.')
+    public function __construct(string $message = 'A clinic with this CNPJ already exists.')
     {
         parent::__construct($message, $this->code);
     }

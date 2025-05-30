@@ -4,15 +4,15 @@
 
 namespace App\Repositories;
 
+use App\Enums\ClinicRole;
 use App\Exceptions\ClinicNameNotUniqueException;
 use App\Models\Clinic;
-use app\Models\User;
+use App\Models\User;
 
 class ClinicRepository
 {
     public function __construct(
         private Clinic $clinicModel,
-        private User $userModel
     ) {}
 
     public function createClinic(array $clinicData)
@@ -35,21 +35,24 @@ class ClinicRepository
         return $this->clinicModel->where('id', $clinicId)->first();
     }
 
-
-
-
-    public function associateUser(array $clinicData, int $userId)
+    public function exitsByCnpj(array $clinicData): bool
     {
-
-        if ($this->clinicRepository->findByCnpj($$clinicData['cnpj'])) {
-            throw new ClinicNameNotUniqueException;
-        }
-
-
+        return $this->clinicModel->where('cnpj' , $clinicData)->exit();
     }
 
     public function findByCnpj(array $clinicData){
+        return $this->clinicModel->where('cnpj' , $clinicData->cnpj )->first();
+    }
 
+    public function associateUser(int $clinicId, int $userId, ?ClinicRole $role = null)
+    {
+        $clinic = $this->clinicModel->findOrFail($clinicId);
+
+        $clinic->users()->attach($userId, [
+            'role' => ($role ?? ClinicRole::ADMIN)->value,
+            'created_by' => $userId
+            ]);
+        return $clinic;
     }
 
 }

@@ -55,7 +55,7 @@ class ClinicController extends Controller
      *     ),
      *
      *     @OA\Response(
-     *         response=500,
+     *         response=500,required|string|max:255',
      *         description="Erro ao cadastrar o médico",
      *
      *         @OA\JsonContent(

@@ -2,7 +2,11 @@
 
 namespace App\Services;
 
+use App\Enums\ClinicRole;
+use App\Exceptions\InvalidCnpjException;
 use App\Repositories\ClinicRepository;
+use http\Exception\InvalidArgumentException;
+use Illuminate\Support\Facades\DB;
 
 class ClinicService
 {
@@ -18,11 +22,16 @@ class ClinicService
 
         DB::beginTransaction();
 
+
         try{
+            $clinicData = $this->sanitizeClinicData($clinicData);
+
 
             $clinic = $this->clinicRepository->createClinic($clinicData);
-
-            $this->clinicRepository->associateUser($clinic, $userId);
+            $this->clinicRepository->associateUser(
+                $clinic->id,
+                $userId,
+            );
             return $clinic;
         }catch (\Exception $e){
            DB::rollBack();
@@ -53,5 +62,62 @@ class ClinicService
         return $this->clinicRepository->updateClinic($clinicData, $clinicId );
     }
 
+    private function sanitizeClinicData(array $clinicData): array
+    {
+        if (!isset($clinicData['cnpj'])) {
+            return $clinicData;
+        }
+
+        if (!isset($clinicData['email'])) {
+            return $clinicData;
+        }
+
+        if (!isset($clinicData['phone'])) {
+            return $clinicData;
+        }
+
+        $cleanedCnpj = $this->sanitizeAndValidateCnpj($clinicData['cnpj']);
+        $clinicData['cnpj'] = $cleanedCnpj;
+
+        $cleanedEmail['email'] = $this->sanitizeAndValidateEmail($clinicData['email']);
+        $clinicData['email'] = $cleanedEmail;
+
+        $cleanedPhone['phone'] = $this->sanitizeAndValidatePhone($clinicData['phone']);
+        $clinicData['phone'] = $cleanedPhone;
+
+        return $clinicData;
+    }
+
+    private function sanitizeAndValidateCnpj(string $rawCnpj): string
+    {
+        $cleanedCnpj = preg_replace('/[^0-9]/', '', $rawCnpj);
+
+        if (strlen($cleanedCnpj) !== 14) {
+            throw new InvalidCnpjException;
+        }
+
+        return $cleanedCnpj;
+    }
+
+    private function sanitizeAndValidateEmail(string $rawEmail): string
+    {
+        $cleanedEmail = filter_var($rawEmail, FILTER_SANITIZE_EMAIL);
+
+        if (!filter_var($cleanedEmail,  FILTER_SANITIZE_EMAIL)) {
+            throw new \InvalidArgumentException('Invalid email addres');
+        }
+
+        return $cleanedEmail;
+    }
+
+    private function sanitizeAndValidatePhone(string $rawPhone): string
+    {
+        $cleanedPhone = preg_replace('/[^0-9]/', '', $rawPhone);
+
+        if ( strlen($cleanedPhone) < 10 ||  strlen($cleanedPhone) > 15 ) {
+            throw new \InvalidArgumentException('Invalid phone number length');
+        }
+        return $cleanedPhone;
+    }
 }
 

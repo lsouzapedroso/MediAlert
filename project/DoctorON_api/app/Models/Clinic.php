@@ -19,6 +19,9 @@ class Clinic extends Model
         'name',
         'address',
         'city_id',
+        'cnpj',
+        'email',
+        'phone',
     ];
 
     /**
@@ -27,5 +30,11 @@ class Clinic extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function clinics(){
+        return $this->belongsToMany(Clinic::class, 'users_clinics')
+            ->withTimestamps()
+            ->withTrashed();
     }
 }
