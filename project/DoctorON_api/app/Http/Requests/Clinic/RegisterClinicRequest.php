@@ -64,14 +64,14 @@ class RegisterClinicRequest extends FormRequest
         ];
     }
 
-    /**
-     * Prepare the data for validation.
-     */
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'cnpj' => preg_replace('/[^0-9]/', '', $this->cnpj),
-            'phone' => preg_replace('/[^0-9]/', '', $this->phone),
-        ]);
-    }
+//    /**
+//     * Prepare the data for validation.
+//     */
+//    protected function prepareForValidation()
+//    {
+//        $this->merge([
+//            'cnpj' => preg_replace('/[^0-9]/', '', $this->cnpj),
+//            'phone' => preg_replace('/[^0-9]/', '', $this->phone),
+//        ]);
+//    }
 }
