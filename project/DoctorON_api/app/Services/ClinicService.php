@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Enums\ClinicRole;
 use App\Exceptions\InvalidCnpjException;
 use App\Repositories\ClinicRepository;
-use http\Exception\InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
 
 class ClinicService
@@ -22,22 +20,17 @@ class ClinicService
 
         DB::beginTransaction();
 
-
         try{
             $clinicData = $this->sanitizeClinicData($clinicData);
-
-
             $clinic = $this->clinicRepository->createClinic($clinicData);
-            $this->clinicRepository->associateUser(
-                $clinic->id,
-                $userId,
-            );
+            $this->clinicRepository->associateUser($clinic->id, $userId);
+
+            DB::commit();
             return $clinic;
         }catch (\Exception $e){
            DB::rollBack();
            throw $e;
         }
-
     }
 
     public function findById(int $clinicId)
@@ -79,11 +72,11 @@ class ClinicService
         $cleanedCnpj = $this->sanitizeAndValidateCnpj($clinicData['cnpj']);
         $clinicData['cnpj'] = $cleanedCnpj;
 
-        $cleanedEmail['email'] = $this->sanitizeAndValidateEmail($clinicData['email']);
+        $cleanedEmail = $this->sanitizeAndValidateEmail($clinicData['email']);
         $clinicData['email'] = $cleanedEmail;
 
-        $cleanedPhone['phone'] = $this->sanitizeAndValidatePhone($clinicData['phone']);
-        $clinicData['phone'] = $cleanedPhone;
+        $cleanedEmail = $this->sanitizeAndValidateEmail($clinicData['email']);
+        $clinicData['email'] = $cleanedEmail;
 
         return $clinicData;
     }
@@ -102,7 +95,6 @@ class ClinicService
     private function sanitizeAndValidateEmail(string $rawEmail): string
     {
         $cleanedEmail = filter_var($rawEmail, FILTER_SANITIZE_EMAIL);
-
         if (!filter_var($cleanedEmail,  FILTER_SANITIZE_EMAIL)) {
             throw new \InvalidArgumentException('Invalid email addres');
         }

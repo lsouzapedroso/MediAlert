@@ -23,7 +23,7 @@ class RegisterClinicRequest extends FormRequest
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'city_id' => 'required|integer|exists:cities,id',
-            'cnpj' => 'required|string|size:14|unique:clinics,cnpj',
+            'cnpj' => 'required|string|size:18|unique:clinics,cnpj',
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255|unique:clinics,email',
         ];
@@ -49,7 +49,7 @@ class RegisterClinicRequest extends FormRequest
 
             'cnpj.required' => 'The CNPJ is required.',
             'cnpj.string' => 'The CNPJ must be a string.',
-            'cnpj.size' => 'The CNPJ must be exactly 14 characters.',
+            'cnpj.size' => 'The CNPJ must be exactly 18 characters.',
             'cnpj.unique' => 'This CNPJ is already registered.',
 
             'phone.required' => 'The phone number is required.',

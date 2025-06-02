@@ -51,7 +51,7 @@ class ClinicRepository
         $clinic->users()->attach($userId, [
             'role' => ($role ?? ClinicRole::ADMIN)->value,
             'created_by' => $userId
-            ]);
+        ]);
         return $clinic;
     }
 

@@ -4,6 +4,7 @@ namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Clinic extends Model
@@ -36,5 +37,12 @@ class Clinic extends Model
         return $this->belongsToMany(Clinic::class, 'users_clinics')
             ->withTimestamps()
             ->withTrashed();
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'users_clinics')
+            ->withPivot(['role', 'created_by'])
+            ->withTimestamps();
     }
 }

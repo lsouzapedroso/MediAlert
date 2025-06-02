@@ -3,6 +3,7 @@
 namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -61,11 +62,10 @@ class User extends Authenticatable implements JWTSubject
     /**
      * The clinics that belong to the user.
      */
-    public function clinics()
+    public function clinics(): BelongsToMany
     {
         return $this->belongsToMany(Clinic::class, 'users_clinics')
             ->withPivot(['role', 'created_by'])
-            ->withTimestamps()
-            ->withTrashed();
+            ->withTimestamps();
     }
 }

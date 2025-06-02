@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use app\Models\User;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
+    use HasFactory;
+
     /**
      * Seed the application's database.
      */
