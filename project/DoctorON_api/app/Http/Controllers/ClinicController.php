@@ -16,8 +16,6 @@ class ClinicController extends Controller
         $this->clinicService = $clinicService;
     }
 
-
-
     /**
      * @OA\Post(
      *     path="/api/clinicas",
@@ -66,6 +64,7 @@ class ClinicController extends Controller
      *     )
      * )
      */
+
     public function register(RegisterClinicRequest $request)
     {
         $validatedData = $request->validated();
@@ -88,6 +87,69 @@ class ClinicController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/clinicas/{id}",
+     *     summary="Buscar clínica por ID",
+     *     description="Retorna os dados de uma clínica específica com base no seu ID.",
+     *     tags={"Clinicas"},
+     *     security={{"bearerAuth":{}}},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID da clínica a ser buscada",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Clínica encontrada com sucesso",
+     *
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Clinic found successfully"),
+     *             @OA\Property(property="clinic", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="Clinica Exemplo"),
+     *                 @OA\Property(property="address", type="string", example="Rua Exemplo, 123"),
+     *                 @OA\Property(property="city_id", type="integer", example=1),
+     *                 @OA\Property(property="created_at", type="string", format="date-time", example="2024-02-01T12:00:00Z"),
+     *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2024-02-01T12:00:00Z"),
+     *                 @OA\Property(property="deleted_at", type="string", format="date-time", nullable=true, example=null)
+     *             )
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=404,
+     *         description="Clínica não encontrada",
+     *
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Clinic not found.")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=422,
+     *         description="Erro de validação (ex: ID inválido)",
+     *
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *             @OA\Property(property="errors", type="object", example={"id": {"The id must be an integer."}})
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro interno do servidor",
+     *
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Erro ao buscar a clinica.")
+     *         )
+     *     )
+     * )
+     */
     public function findByid(FyndByIdClinicRequest $request)
     {
 
@@ -106,9 +168,5 @@ class ClinicController extends Controller
             ], 422);
         }
     }
-
-
-
-
 
 }
