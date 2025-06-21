@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\MedicController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,3 +32,5 @@ Route::get('/cidades', [CityController::class, 'index']);
 Route::get('/cidades/{id_cidade}/medicos', [CityController::class, 'getMedicosByCidade']);
 
 Route::get('/medicos', [MedicController::class, 'index']);
+
+Route::post('/user/register', [UserController::class, 'store']);
