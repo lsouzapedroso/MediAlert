@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MedicController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ClinicController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,10 @@ Route::middleware([Middleware::class])->group(function () {
     Route::post('/clinicas', [ClinicController::class, 'register']);
     Route::put('/clinic/{clinic_id}', [ClinicController::class, 'updateClinic']);
 
+    Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::put('/user/{id}', [UserController::class, 'update']); // Ou Route::patch para atualizações parciais
+    Route::delete('/user/{id}', [UserController::class, 'destroy']);
+
+
 });
+
